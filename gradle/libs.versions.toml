@@ -1,6 +1,7 @@
 [versions]
 agp = "8.3.0"
 kotlin = "1.9.0"
+hilt = "2.46.1"
 coreKtx = "1.13.0"
 junit = "4.13.2"
 junitVersion = "1.1.5"
@@ -17,7 +18,9 @@ mockk = "1.10.2"
 coreTesting = "2.1.0"
 lifecycleViewmodelKtx = "2.5.1"
 coroutines = "1.6.1"
-kotlinx-coroutines-test = "1.6.1"
+kotlinxCoroutinesTest = "1.6.1"
+hiltAndroid = "2.46.1"
+hiltAndroidCompiler = "2.46.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -36,10 +39,12 @@ mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "coreTesting" }
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 kotlinx-coroutines-android = { group = 'org.jetbrains.kotlinx', name = "kotlinx-coroutines-android", version.ref = "coroutines" }
-kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines-test" }
-
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hiltAndroid" }
+hilt-android-compiler ={ group = "com.google.dagger", name ="hilt-android-compiler", version.ref ="hiltAndroidCompiler"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+hiltAndroidPlugin = { id = "dagger.hilt.android.plugin", version.ref = "hilt" }
 
