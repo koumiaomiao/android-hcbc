@@ -20,6 +20,7 @@ coroutines = "1.6.1"
 kotlinxCoroutinesTest = "1.6.1"
 hiltAndroid = "2.48"
 hiltAndroidCompiler = "2.48"
+navigationFragment = "2.7.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -41,6 +42,7 @@ kotlinx-coroutines-android = { group = 'org.jetbrains.kotlinx', name = "kotlinx-
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hiltAndroid" }
 hilt-android-compiler ={ group = "com.google.dagger", name ="hilt-android-compiler", version.ref ="hiltAndroidCompiler"}
+androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

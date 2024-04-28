@@ -20,6 +20,10 @@ class BookViewModel @Inject constructor(private val repository: BookRepository) 
 
     val actionLiveData = ActionLiveData<Action>()
 
+    init {
+        fetchAllBooks()
+    }
+
     fun fetchAllBooks() {
         viewModelScope.launch {
             val resource = repository.fetchAllBooks()

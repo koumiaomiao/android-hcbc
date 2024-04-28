@@ -32,6 +32,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -46,6 +49,7 @@ dependencies {
     implementation libs.lifecycle.viewmodel.ktx
     implementation libs.kotlinx.coroutines.android
     implementation libs.hilt.android
+    implementation libs.androidx.navigation.fragment
     kapt libs.hilt.android.compiler
 
     testImplementation libs.mockk
