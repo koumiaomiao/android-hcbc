@@ -3,12 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home_room">
+    app:startDestination="@id/books_fragment_dest">
 
     <fragment
-        android:id="@+id/navigation_home_room"
+        android:id="@+id/books_fragment_dest"
         android:name="com.kmj.hcbc.ui.books.BooksFragment"
-        tools:layout="@layout/fragment_books" />
-
+        tools:layout="@layout/fragment_books">
+        <action
+            android:id="@+id/action_booksFragment_to_addBookFragment"
+            app:destination="@id/add_book_fragment_dest" />
+    </fragment>
+    <fragment
+        android:id="@+id/add_book_fragment_dest"
+        android:name="com.kmj.hcbc.ui.addbook.AddBookFragment">
+        <action
+            android:id="@+id/action_addBookFragment_to_booksFragment"
+            app:destination="@id/books_fragment_dest" />
+    </fragment>
 
 </navigation>

@@ -6,5 +6,5 @@ import com.kmj.hcbc.repository.remote.network.Resource
 interface BookRepository {
     suspend fun fetchAllBooks(): Resource<List<Book>?>
 
-    suspend fun createBook(): Resource<Book?>
+    suspend fun createBook(book: Book): Resource<Book?>
 }

@@ -18,6 +18,9 @@ class BookViewModel @Inject constructor(private val repository: BookRepository) 
     private val _booksLiveData = MutableLiveData<List<Book>?>()
     val booksLiveData = _booksLiveData
 
+    private val _createdBook = MutableLiveData<Book?>()
+    val createdBook = _createdBook
+
     val actionLiveData = ActionLiveData<Action>()
 
     init {
@@ -29,6 +32,22 @@ class BookViewModel @Inject constructor(private val repository: BookRepository) 
             val resource = repository.fetchAllBooks()
             when (resource.status) {
                 State.SUCCESS -> _booksLiveData.value = resource.data
+                else -> {
+                    if (resource.throwable is IOException) {
+                        actionLiveData.sendAction(Action.NetworkError)
+                    } else {
+                        actionLiveData.sendAction(Action.FetchDataError(resource.errorBody?.code))
+                    }
+                }
+            }
+        }
+    }
+
+    fun createBook(book: Book) {
+        viewModelScope.launch {
+            val resource = repository.createBook(book)
+            when (resource.status) {
+                State.SUCCESS -> _createdBook.value = resource.data
                 else -> {
                     if (resource.throwable is IOException) {
                         actionLiveData.sendAction(Action.NetworkError)

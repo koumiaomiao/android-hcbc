@@ -18,9 +18,9 @@ class BookRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun createBook(): Resource<Book?> {
+    override suspend fun createBook(book: Book): Resource<Book?> {
         return resourceOf {
-            service.createBook()
+            service.createBook(book)
         }
     }
 }

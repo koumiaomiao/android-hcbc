@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">android-hcbc</string>
+    <string name="title_hint">Title</string>
+    <string name="author_hint">Author</string>
+    <string name="publish_year_hint">Publish Year</string>
+    <string name="isbn_hint">ISBN</string>
+    <string name="error_message">出错了，请稍后再试</string>
 </resources>
