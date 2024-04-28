@@ -1,8 +1,8 @@
 package com.kmj.hcbc.repositories
 
 import com.kmj.hcbc.model.Book
-import com.kmj.hcbc.repository.BookApiRepository
-import com.kmj.hcbc.repository.remote.BookApiRepositoryImpl
+import com.kmj.hcbc.repository.BookRepository
+import com.kmj.hcbc.repository.remote.BookRepositoryImpl
 import com.kmj.hcbc.repository.remote.api.BookApiService
 import com.kmj.hcbc.repository.remote.network.State
 import io.mockk.MockKAnnotations
@@ -14,18 +14,18 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
-class BookApiRepositoryTest {
+class BookRepositoryTest {
 
     @MockK
     lateinit var bookApiService: BookApiService
 
-    private lateinit var repository: BookApiRepository
+    private lateinit var repository: BookRepository
     private lateinit var books: List<Book>
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        repository = BookApiRepositoryImpl(bookApiService)
+        repository = BookRepositoryImpl(bookApiService)
         books = listOf(Book("1", "title", "author", "1998", "123456"))
     }
 

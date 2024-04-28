@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.kmj.hcbc.model.Book
-import com.kmj.hcbc.repository.BookApiRepository
+import com.kmj.hcbc.repository.BookRepository
 import com.kmj.hcbc.repository.remote.network.Resource
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -30,7 +30,7 @@ class BookViewModelTest {
     val rule = InstantTaskExecutorRule()
 
     @MockK(relaxed = true)
-    lateinit var repository: BookApiRepository
+    lateinit var repository: BookRepository
 
     private lateinit var viewModel: BookViewModel
     private lateinit var books: List<Book>

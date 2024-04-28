@@ -4,13 +4,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kmj.hcbc.model.Book
-import com.kmj.hcbc.repository.BookApiRepository
+import com.kmj.hcbc.repository.BookRepository
 import com.kmj.hcbc.repository.remote.network.State
 import com.kmj.hcbc.utils.ActionLiveData
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.IOException
+import javax.inject.Inject
 
-class BookViewModel(private val repository: BookApiRepository) : ViewModel() {
+@HiltViewModel
+class BookViewModel @Inject constructor(private val repository: BookRepository) : ViewModel() {
 
     private val _booksLiveData = MutableLiveData<List<Book>?>()
     val booksLiveData = _booksLiveData
