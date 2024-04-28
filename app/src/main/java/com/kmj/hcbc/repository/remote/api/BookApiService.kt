@@ -1,4 +1,4 @@
-package com.kmj.hcbc.repository.api
+package com.kmj.hcbc.repository.remote.api
 
 import com.kmj.hcbc.model.Book
 import retrofit2.http.GET

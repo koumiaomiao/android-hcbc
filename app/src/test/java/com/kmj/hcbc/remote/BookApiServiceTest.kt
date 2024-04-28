@@ -1,6 +1,6 @@
 package com.kmj.hcbc.remote
 
-import com.kmj.hcbc.repository.api.BookApiService
+import com.kmj.hcbc.repository.remote.api.BookApiService
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer

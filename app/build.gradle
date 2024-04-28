@@ -42,6 +42,7 @@ dependencies {
     implementation libs.retrofit2
     implementation libs.retrofit2.converter.gson
 
+    testImplementation libs.mockk
     testImplementation libs.json
     testImplementation libs.mockwebserver
     testImplementation libs.junit
