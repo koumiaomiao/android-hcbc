@@ -1,0 +1,18 @@
+{
+  "books": [
+    {
+      "id": "1",
+      "title": "Harry Potter",
+      "author": "W. Frederick",
+      "publication_year": "1990",
+      "isbn": "0517149257"
+    },
+    {
+      "id": "2",
+      "title": "A Short History of Nearly Everything",
+      "author": "Bill Bryson",
+      "publication_year": "1991",
+      "isbn": "076790818X"
+    }
+  ]
+}
