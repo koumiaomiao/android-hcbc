@@ -14,6 +14,10 @@ converterGson = "2.9.0"
 mockwebserver = "4.9.1"
 json = "20231013"
 mockk = "1.10.2"
+coreTesting = "2.1.0"
+lifecycleViewmodelKtx = "2.5.1"
+coroutines = "1.6.1"
+kotlinx-coroutines-test = "1.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -29,6 +33,10 @@ retrofit2-converter-gson = { group = "com.squareup.retrofit2", name = "converter
 mockwebserver = { group = "com.squareup.okhttp3", name = "mockwebserver", version.ref = "mockwebserver" }
 json = { group = "org.json", name = "json", version.ref = "json" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "coreTesting" }
+lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
+kotlinx-coroutines-android = { group = 'org.jetbrains.kotlinx', name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines-test" }
 
 
 [plugins]
