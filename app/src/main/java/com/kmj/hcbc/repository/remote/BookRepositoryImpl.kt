@@ -23,4 +23,16 @@ class BookRepositoryImpl @Inject constructor(
             service.createBook(book)
         }
     }
+
+    override suspend fun deleteBookById(id: String): Resource<Unit?> {
+        return resourceOf {
+            service.deleteBookById(id)
+        }
+    }
+
+    override suspend fun updateBook(book: Book): Resource<Book?> {
+        return resourceOf {
+            service.updateBook(book)
+        }
+    }
 }
