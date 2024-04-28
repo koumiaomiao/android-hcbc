@@ -1,14 +1,17 @@
 package com.kmj.hcbc.ui.books
 
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kmj.hcbc.R
 import com.kmj.hcbc.databinding.FragmentBooksBinding
 import com.kmj.hcbc.model.Book
@@ -21,15 +24,28 @@ class BooksFragment : Fragment() {
     private lateinit var binding: FragmentBooksBinding
     private val viewModel by activityViewModels<BookViewModel>()
     private val adapter: BookAdapter by lazy {
-        BookAdapter(books) {
-
-        }
+        BookAdapter(books,
+            clickCallback = {
+                findNavController().navigate(
+                    R.id.action_booksFragment_to_addBookFragment,
+                    bundleOf("book" to it)
+                )
+            },
+            longClickCallback = {
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle(resources.getString(R.string.dialog_title))
+                    .setMessage(resources.getString(R.string.dialog_support_title))
+                    .setPositiveButton(resources.getString(R.string.dialog_accept)) { dialog, which ->
+                        viewModel.deleteBookById(it?.id.orEmpty())
+                    }
+                    .show()
+            })
     }
 
     private val books by lazy {
         listOf(
             Book("1", "A Short History of Nearly Everything", "Bill Bryson", "1997", "0517149257"),
-            Book("2", "A Short History of Nearly Everything", "Bill Bryson", "1997", "0517149257")
+            Book("2", "The Hitchhiker's Guide to the Galaxy", "Douglas Adams", "1997", "0517149257")
         )
     }
 
@@ -56,7 +72,7 @@ class BooksFragment : Fragment() {
     }
 
     private fun initObserver() {
-        viewModel.createdBook.observe(viewLifecycleOwner) {
+        viewModel.latestBook.observe(viewLifecycleOwner) {
             it?.let {
                 viewModel.fetchAllBooks()
             }

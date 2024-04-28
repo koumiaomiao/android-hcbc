@@ -15,17 +15,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/too_bar"
+            <com.google.android.material.search.SearchBar
+                android:id="@+id/search_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:title="Book list" />
+                android:hint="@string/search"
+                app:forceDefaultNavigationOnClickListener="true" />
+
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="64dp">
+            android:layout_marginTop="70dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/book_list"

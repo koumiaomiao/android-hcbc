@@ -26,6 +26,7 @@
                 android:id="@+id/too_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:navigationIcon="@drawable/icon_back"
                 app:title="Edit Book" />
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -50,7 +51,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/title_hint"
-                        android:maxLines="1"
                         android:text="@{book.title}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textStyle="bold" />

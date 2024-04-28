@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.kmj.hcbc.R
 import com.kmj.hcbc.databinding.FragmentAddBookBinding
 import com.kmj.hcbc.model.Book
 import com.kmj.hcbc.viewmodel.BookViewModel
@@ -17,6 +16,7 @@ class AddBookFragment : Fragment() {
 
     private lateinit var binding: FragmentAddBookBinding
     private val viewmodel by activityViewModels<BookViewModel>()
+    private val book by lazy { arguments?.getParcelable<Book>("book") }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,6 +24,7 @@ class AddBookFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddBookBinding.inflate(inflater, container, false)
+        binding.book = book
         return binding.root
     }
 
@@ -38,9 +39,17 @@ class AddBookFragment : Fragment() {
             val author = binding.authorEditText.text.toString()
             val publishYear = binding.publishYearEditText.text.toString()
             val isbn = binding.isbnEditText.text.toString()
-            val book = Book(UUID.randomUUID().toString(), title, author, publishYear, isbn)
-            viewmodel.createBook(book)
-            findNavController().navigate(R.id.action_addBookFragment_to_booksFragment)
+            val id = book?.id ?: UUID.randomUUID().toString()
+            val latestBook = Book(id, title, author, publishYear, isbn)
+            book?.let {
+                viewmodel.updateBook(latestBook)
+            } ?: run {
+                viewmodel.createBook(latestBook)
+            }
+            findNavController().popBackStack()
+        }
+        binding.tooBar.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 }

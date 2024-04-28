@@ -18,8 +18,8 @@ class BookViewModel @Inject constructor(private val repository: BookRepository) 
     private val _booksLiveData = MutableLiveData<List<Book>?>()
     val booksLiveData = _booksLiveData
 
-    private val _createdBook = MutableLiveData<Book?>()
-    val createdBook = _createdBook
+    private val _latestBook = MutableLiveData<Book?>()
+    val latestBook = _latestBook
 
     val actionLiveData = ActionLiveData<Action>()
 
@@ -47,7 +47,39 @@ class BookViewModel @Inject constructor(private val repository: BookRepository) 
         viewModelScope.launch {
             val resource = repository.createBook(book)
             when (resource.status) {
-                State.SUCCESS -> _createdBook.value = resource.data
+                State.SUCCESS -> _latestBook.value = resource.data
+                else -> {
+                    if (resource.throwable is IOException) {
+                        actionLiveData.sendAction(Action.NetworkError)
+                    } else {
+                        actionLiveData.sendAction(Action.FetchDataError(resource.errorBody?.code))
+                    }
+                }
+            }
+        }
+    }
+
+    fun updateBook(book: Book) {
+        viewModelScope.launch {
+            val resource = repository.updateBook(book)
+            when (resource.status) {
+                State.SUCCESS -> _latestBook.value = resource.data
+                else -> {
+                    if (resource.throwable is IOException) {
+                        actionLiveData.sendAction(Action.NetworkError)
+                    } else {
+                        actionLiveData.sendAction(Action.FetchDataError(resource.errorBody?.code))
+                    }
+                }
+            }
+        }
+    }
+
+    fun deleteBookById(id: String) {
+        viewModelScope.launch {
+            val resource = repository.deleteBookById(id)
+            when (resource.status) {
+                State.SUCCESS -> repository.fetchAllBooks()
                 else -> {
                     if (resource.throwable is IOException) {
                         actionLiveData.sendAction(Action.NetworkError)

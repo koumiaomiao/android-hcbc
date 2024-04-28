@@ -8,7 +8,8 @@ import com.kmj.hcbc.model.Book
 
 class BookAdapter(
     var items: List<Book> = emptyList(),
-    val clickCallback: (book: Book?) -> Unit = {}
+    val clickCallback: (book: Book?) -> Unit = {},
+    val longClickCallback: (book: Book?) -> Unit = {}
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ItemBookViewHolder(
@@ -28,6 +29,10 @@ class BookAdapter(
             it.book = item
             it.root.setOnClickListener {
                 clickCallback(item)
+            }
+            it.root.setOnLongClickListener {
+                longClickCallback(item)
+                true
             }
         }
     }

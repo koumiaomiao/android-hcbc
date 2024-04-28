@@ -1,9 +1,13 @@
 package com.kmj.hcbc.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Book(
     val id: String?,
-    val title: String?,
-    val author: String?,
-    val publishYear: String?,
-    val isbn: String?
-)
+    var title: String?,
+    var author: String?,
+    var publishYear: String?,
+    var isbn: String?
+): Parcelable
