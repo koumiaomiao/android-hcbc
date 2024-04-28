@@ -2,14 +2,14 @@ package com.kmj.hcbc.repository
 
 import com.kmj.hcbc.model.Book
 import com.kmj.hcbc.repository.remote.network.Resource
-import retrofit2.http.Body
 
 interface BookRepository {
     suspend fun fetchAllBooks(): Resource<List<Book>?>
+    suspend fun fetchBookById(id: String): Resource<Book?>
 
     suspend fun createBook(book: Book): Resource<Book?>
 
     suspend fun deleteBookById(id: String): Resource<Unit?>
 
-    suspend fun updateBook(@Body book: Book): Resource<Book?>
+    suspend fun updateBook(id: String, book: Book): Resource<Book?>
 }

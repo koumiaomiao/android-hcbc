@@ -18,6 +18,12 @@ class BookRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun fetchBookById(id: String): Resource<Book?> {
+        return resourceOf {
+            service.fetchBookById(id)
+        }
+    }
+
     override suspend fun createBook(book: Book): Resource<Book?> {
         return resourceOf {
             service.createBook(book)
@@ -30,9 +36,9 @@ class BookRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun updateBook(book: Book): Resource<Book?> {
+    override suspend fun updateBook(id: String, book: Book): Resource<Book?> {
         return resourceOf {
-            service.updateBook(book)
+            service.updateBook(id, book)
         }
     }
 }

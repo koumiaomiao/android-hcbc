@@ -21,6 +21,9 @@ class BookViewModel @Inject constructor(private val repository: BookRepository) 
     private val _latestBook = MutableLiveData<Book?>()
     val latestBook = _latestBook
 
+    private val _foundBook = MutableLiveData<Book?>()
+    val foundBook = _foundBook
+
     val actionLiveData = ActionLiveData<Action>()
 
     init {
@@ -59,9 +62,9 @@ class BookViewModel @Inject constructor(private val repository: BookRepository) 
         }
     }
 
-    fun updateBook(book: Book) {
+    fun updateBook(id: String, book: Book) {
         viewModelScope.launch {
-            val resource = repository.updateBook(book)
+            val resource = repository.updateBook(id, book)
             when (resource.status) {
                 State.SUCCESS -> _latestBook.value = resource.data
                 else -> {
@@ -80,6 +83,22 @@ class BookViewModel @Inject constructor(private val repository: BookRepository) 
             val resource = repository.deleteBookById(id)
             when (resource.status) {
                 State.SUCCESS -> repository.fetchAllBooks()
+                else -> {
+                    if (resource.throwable is IOException) {
+                        actionLiveData.sendAction(Action.NetworkError)
+                    } else {
+                        actionLiveData.sendAction(Action.FetchDataError(resource.errorBody?.code))
+                    }
+                }
+            }
+        }
+    }
+
+    fun findBookById(id: String) {
+        viewModelScope.launch {
+            val resource = repository.fetchBookById(id)
+            when (resource.status) {
+                State.SUCCESS -> _foundBook.value = resource.data
                 else -> {
                     if (resource.throwable is IOException) {
                         actionLiveData.sendAction(Action.NetworkError)

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView.OnQueryTextListener
 import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
 import androidx.core.os.bundleOf
@@ -69,6 +70,17 @@ class BooksFragment : Fragment() {
         binding.addBookFab.setOnClickListener {
             findNavController().navigate(R.id.action_booksFragment_to_addBookFragment)
         }
+        binding.searchView.setOnQueryTextListener(object : OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                viewModel.findBookById(query.orEmpty())
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
     }
 
     private fun initObserver() {
@@ -83,6 +95,11 @@ class BooksFragment : Fragment() {
         viewModel.actionLiveData.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), context?.getText(R.string.error_message), LENGTH_LONG)
                 .show()
+        }
+        viewModel.foundBook.observe(viewLifecycleOwner) {
+            it?.let {
+                adapter.setData(listOf(it))
+            }
         }
     }
 }

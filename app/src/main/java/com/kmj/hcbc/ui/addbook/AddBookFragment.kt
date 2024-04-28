@@ -42,7 +42,7 @@ class AddBookFragment : Fragment() {
             val id = book?.id ?: UUID.randomUUID().toString()
             val latestBook = Book(id, title, author, publishYear, isbn)
             book?.let {
-                viewmodel.updateBook(latestBook)
+                viewmodel.updateBook(it.id.orEmpty(), latestBook)
             } ?: run {
                 viewmodel.createBook(latestBook)
             }
