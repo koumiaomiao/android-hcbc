@@ -71,7 +71,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:gravity="top"
-                        android:hint="@string/publish_year_hint"
+                        android:hint="@string/publication_year_hint"
                         android:imeOptions="flagNoExtractUi"
                         android:text="@{book.publicationYear}" />
 

@@ -2,8 +2,11 @@
     <string name="app_name">android-hcbc</string>
     <string name="title_hint">Title</string>
     <string name="author_hint">Author</string>
-    <string name="publish_year_hint">Publish Year</string>
+    <string name="publication_year_hint">Publication Year</string>
     <string name="isbn_hint">ISBN</string>
+    <string name="author_prefix">Author: </string>
+    <string name="publication_year_prefix">Publication Year: </string>
+    <string name="isbn_prefix">ISBN: </string>
     <string name="error_message">Sorry, try it later</string>
     <string name="search">Search by id</string>
     <string name="dialog_title">Confirm delete?</string>
