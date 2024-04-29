@@ -69,6 +69,9 @@ class BooksFragment : Fragment() {
                 return false
             }
         })
+        binding.refresh.setOnRefreshListener {
+            viewModel.fetchAllBooks()
+        }
     }
 
     private fun initObserver() {
@@ -83,6 +86,9 @@ class BooksFragment : Fragment() {
         viewModel.foundBook.observe(viewLifecycleOwner) {
             val data = if (null != it) listOf(it) else emptyList()
             adapter.setData(data)
+        }
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            binding.refresh.isRefreshing = it
         }
         viewModel.actionLiveData.observe(viewLifecycleOwner) {
             val message = when (it) {
