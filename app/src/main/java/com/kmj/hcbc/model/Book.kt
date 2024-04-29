@@ -8,6 +8,6 @@ data class Book(
     val id: String?,
     var title: String?,
     var author: String?,
-    var publishYear: String?,
+    var publicationYear: String?,
     var isbn: String?
 ): Parcelable

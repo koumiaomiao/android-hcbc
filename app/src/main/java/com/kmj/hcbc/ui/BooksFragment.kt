@@ -26,7 +26,7 @@ class BooksFragment : Fragment() {
     private lateinit var binding: FragmentBooksBinding
     private val viewModel by activityViewModels<BookViewModel>()
     private val adapter: BookAdapter by lazy {
-        BookAdapter(books,
+        BookAdapter(
             clickCallback = {
                 navigateToEditFragment(it)
             },
