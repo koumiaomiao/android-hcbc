@@ -21,6 +21,7 @@ kotlinxCoroutinesTest = "1.6.1"
 hiltAndroid = "2.48"
 hiltAndroidCompiler = "2.48"
 navigationFragment = "2.7.7"
+hilt = "2.48"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -47,4 +48,5 @@ androidx-navigation-fragment = { group = "androidx.navigation", name = "navigati
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+daggerHiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 

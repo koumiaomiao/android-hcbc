@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.kmj.hcbc.model.Book
 import com.kmj.hcbc.repository.BookRepository
 import com.kmj.hcbc.repository.remote.network.State
+import com.kmj.hcbc.utils.Action
 import com.kmj.hcbc.utils.ActionLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -39,7 +40,7 @@ class BookViewModel @Inject constructor(private val repository: BookRepository) 
                     if (resource.throwable is IOException) {
                         actionLiveData.sendAction(Action.NetworkError)
                     } else {
-                        actionLiveData.sendAction(Action.FetchDataError(resource.errorBody?.code))
+                        actionLiveData.sendAction(Action.FetchDataError(resource.errorBody?.message))
                     }
                 }
             }
@@ -55,7 +56,7 @@ class BookViewModel @Inject constructor(private val repository: BookRepository) 
                     if (resource.throwable is IOException) {
                         actionLiveData.sendAction(Action.NetworkError)
                     } else {
-                        actionLiveData.sendAction(Action.FetchDataError(resource.errorBody?.code))
+                        actionLiveData.sendAction(Action.FetchDataError(resource.errorBody?.message))
                     }
                 }
             }
@@ -71,7 +72,7 @@ class BookViewModel @Inject constructor(private val repository: BookRepository) 
                     if (resource.throwable is IOException) {
                         actionLiveData.sendAction(Action.NetworkError)
                     } else {
-                        actionLiveData.sendAction(Action.FetchDataError(resource.errorBody?.code))
+                        actionLiveData.sendAction(Action.FetchDataError(resource.errorBody?.message))
                     }
                 }
             }
@@ -87,7 +88,7 @@ class BookViewModel @Inject constructor(private val repository: BookRepository) 
                     if (resource.throwable is IOException) {
                         actionLiveData.sendAction(Action.NetworkError)
                     } else {
-                        actionLiveData.sendAction(Action.FetchDataError(resource.errorBody?.code))
+                        actionLiveData.sendAction(Action.FetchDataError(resource.errorBody?.message))
                     }
                 }
             }
@@ -103,15 +104,10 @@ class BookViewModel @Inject constructor(private val repository: BookRepository) 
                     if (resource.throwable is IOException) {
                         actionLiveData.sendAction(Action.NetworkError)
                     } else {
-                        actionLiveData.sendAction(Action.FetchDataError(resource.errorBody?.code))
+                        actionLiveData.sendAction(Action.FetchDataError(resource.errorBody?.message))
                     }
                 }
             }
         }
-    }
-
-    sealed class Action {
-        class FetchDataError(val code: String?) : Action()
-        object NetworkError : Action()
     }
 }

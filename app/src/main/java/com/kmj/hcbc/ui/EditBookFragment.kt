@@ -1,4 +1,4 @@
-package com.kmj.hcbc.ui.addbook
+package com.kmj.hcbc.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,23 +7,23 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.kmj.hcbc.databinding.FragmentAddBookBinding
+import com.kmj.hcbc.databinding.FragmentEditBookBinding
 import com.kmj.hcbc.model.Book
 import com.kmj.hcbc.viewmodel.BookViewModel
 import java.util.UUID
 
-class AddBookFragment : Fragment() {
+class EditBookFragment : Fragment() {
 
-    private lateinit var binding: FragmentAddBookBinding
+    private lateinit var binding: FragmentEditBookBinding
     private val viewmodel by activityViewModels<BookViewModel>()
-    private val book by lazy { arguments?.getParcelable<Book>("book") }
+    private val book by lazy { arguments?.getParcelable<Book>(BOOK_KEY) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAddBookBinding.inflate(inflater, container, false)
+        binding = FragmentEditBookBinding.inflate(inflater, container, false)
         binding.book = book
         return binding.root
     }
@@ -51,5 +51,9 @@ class AddBookFragment : Fragment() {
         binding.tooBar.setOnClickListener {
             findNavController().popBackStack()
         }
+    }
+
+    companion object {
+        private const val BOOK_KEY = "book"
     }
 }

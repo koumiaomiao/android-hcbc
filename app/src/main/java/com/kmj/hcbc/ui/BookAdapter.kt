@@ -1,4 +1,4 @@
-package com.kmj.hcbc.ui.books
+package com.kmj.hcbc.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

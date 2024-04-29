@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/books_fragment_dest"
-        android:name="com.kmj.hcbc.ui.books.BooksFragment"
+        android:name="com.kmj.hcbc.ui.BooksFragment"
         tools:layout="@layout/fragment_books">
         <action
             android:id="@+id/action_booksFragment_to_addBookFragment"
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/add_book_fragment_dest"
-        android:name="com.kmj.hcbc.ui.addbook.AddBookFragment">
+        android:name="com.kmj.hcbc.ui.EditBookFragment">
         <action
             android:id="@+id/action_addBookFragment_to_booksFragment"
             app:destination="@id/books_fragment_dest" />
