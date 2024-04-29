@@ -1,0 +1,11 @@
+#!/bin/sh
+
+commit_msg=$(cat $1)
+
+msg_re="^(\[(Feature|Fix|Tech|Doc|Spike|Chore|Test)\])?[^\u4E00-\u9FFF]+|(Merge |Revert )[^\u4E00-\u9FFF]+"
+
+if [[ ! $commit_msg =~ $msg_re ]]
+then
+    printf "\n Commit failed!!\n\n Error:Illegal commit message \"%s\"\n\n Please use the correct format!\n eg: [Feature] add user\n or add user\n" "$commit_msg"
+    exit 1
+fi

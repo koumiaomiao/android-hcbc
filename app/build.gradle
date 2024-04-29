@@ -6,6 +6,8 @@ plugins {
     id 'kotlin-parcelize'
 }
 
+apply from: '../gradle/git-hooks.gradle'
+
 android {
     namespace 'com.kmj.hcbc'
     compileSdk 34

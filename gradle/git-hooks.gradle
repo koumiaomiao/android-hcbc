@@ -1,0 +1,9 @@
+tasks.register('installGitHooks', Copy) {
+    from new File('../', 'config/git-hooks')
+    into {
+        new File('../', '.git/hooks')
+    }
+    fileMode 0755
+}
+
+preBuild.dependsOn installGitHooks
