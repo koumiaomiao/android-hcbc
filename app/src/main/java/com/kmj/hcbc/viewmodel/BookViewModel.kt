@@ -39,13 +39,7 @@ class BookViewModel @Inject constructor(private val repository: BookRepository) 
             isLoading.value = false
             when (resource.status) {
                 State.SUCCESS -> _booksLiveData.value = resource.data
-                else -> {
-                    if (resource.throwable is IOException) {
-                        actionLiveData.sendAction(Action.NetworkError)
-                    } else {
-                        actionLiveData.sendAction(Action.FetchDataError(resource.errorBody?.message))
-                    }
-                }
+                else -> actionLiveData.sendAction(Action.FetchDataError)
             }
         }
     }
@@ -57,13 +51,7 @@ class BookViewModel @Inject constructor(private val repository: BookRepository) 
             isLoading.value = false
             when (resource.status) {
                 State.SUCCESS -> _latestBook.value = resource.data
-                else -> {
-                    if (resource.throwable is IOException) {
-                        actionLiveData.sendAction(Action.NetworkError)
-                    } else {
-                        actionLiveData.sendAction(Action.FetchDataError(resource.errorBody?.message))
-                    }
-                }
+                else -> actionLiveData.sendAction(Action.CreateDataError)
             }
         }
     }
@@ -75,13 +63,7 @@ class BookViewModel @Inject constructor(private val repository: BookRepository) 
             isLoading.value = false
             when (resource.status) {
                 State.SUCCESS -> _latestBook.value = resource.data
-                else -> {
-                    if (resource.throwable is IOException) {
-                        actionLiveData.sendAction(Action.NetworkError)
-                    } else {
-                        actionLiveData.sendAction(Action.FetchDataError(resource.errorBody?.message))
-                    }
-                }
+                else -> actionLiveData.sendAction(Action.UpdateDataError)
             }
         }
     }
@@ -92,14 +74,8 @@ class BookViewModel @Inject constructor(private val repository: BookRepository) 
             val resource = repository.deleteBookById(id)
             isLoading.value = false
             when (resource.status) {
-                State.SUCCESS -> repository.fetchAllBooks()
-                else -> {
-                    if (resource.throwable is IOException) {
-                        actionLiveData.sendAction(Action.NetworkError)
-                    } else {
-                        actionLiveData.sendAction(Action.FetchDataError(resource.errorBody?.message))
-                    }
-                }
+                State.SUCCESS -> fetchAllBooks()
+                else -> actionLiveData.sendAction(Action.DeleteDataError)
             }
         }
     }
@@ -109,7 +85,10 @@ class BookViewModel @Inject constructor(private val repository: BookRepository) 
         viewModelScope.launch {
             val resource = repository.fetchBookById(id)
             isLoading.value = false
-             _foundBook.value = resource.data
+            _foundBook.value = resource.data
+            if (resource.status == State.ERROR) {
+                actionLiveData.sendAction(Action.SearchDataError)
+            }
         }
     }
 }

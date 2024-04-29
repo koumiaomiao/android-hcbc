@@ -7,7 +7,12 @@
     <string name="author_prefix">Author: </string>
     <string name="publication_year_prefix">Publication Year: </string>
     <string name="isbn_prefix">ISBN: </string>
-    <string name="error_message">Sorry, try it later</string>
+    <string name="general_error_message"> Sorry, try it later </string>
+    <string name="create_error_message"> Create failure, try it later </string>
+    <string name="delete_error_message">Delete failure, try it later</string>
+    <string name="update_error_message">Update failure, try it later</string>
+    <string name="search_error_message">Sorry, no book</string>
+    <string name="get_data_error_message">Get data failure, try it later</string>
     <string name="search">Search by id</string>
     <string name="dialog_title">Confirm delete?</string>
     <string name="dialog_cancel">Cancel</string>

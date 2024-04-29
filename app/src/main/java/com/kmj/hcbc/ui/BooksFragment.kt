@@ -78,11 +78,6 @@ class BooksFragment : Fragment() {
         viewModel.booksLiveData.observe(viewLifecycleOwner) {
             adapter.setData(it.orEmpty())
         }
-        viewModel.latestBook.observe(viewLifecycleOwner) {
-            it?.let {
-                viewModel.fetchAllBooks()
-            }
-        }
         viewModel.foundBook.observe(viewLifecycleOwner) {
             val data = if (null != it) listOf(it) else emptyList()
             adapter.setData(data)
@@ -92,8 +87,10 @@ class BooksFragment : Fragment() {
         }
         viewModel.actionLiveData.observe(viewLifecycleOwner) {
             val message = when (it) {
-                is Action.FetchDataError -> it.message.orEmpty()
-                else -> context?.getText(R.string.error_message)
+                is Action.FetchDataError -> context?.getText(R.string.get_data_error_message)
+                is Action.DeleteDataError -> context?.getText(R.string.delete_error_message)
+                is Action.SearchDataError -> context?.getText(R.string.search_error_message)
+                else -> context?.getText(R.string.general_error_message)
             }
             Toast.makeText(requireContext(), message, LENGTH_LONG).show()
         }
@@ -107,35 +104,19 @@ class BooksFragment : Fragment() {
     }
 
     private fun showConfirmDeleteDialog(it: Book?) {
-        MaterialAlertDialogBuilder(requireContext())
+        val dialog = MaterialAlertDialogBuilder(requireContext())
             .setTitle(resources.getString(R.string.dialog_title))
             .setMessage(resources.getString(R.string.dialog_support_title))
+            .setNegativeButton(resources.getString(R.string.dialog_cancel)) { dialog, which ->
+                dialog.dismiss()
+            }
             .setPositiveButton(resources.getString(R.string.dialog_accept)) { dialog, which ->
                 viewModel.deleteBookById(it?.id.orEmpty())
             }
-            .show()
+        dialog.show()
     }
 
     companion object {
         private const val BOOK_KEY = "book"
-
-        private val books by lazy {
-            listOf(
-                Book(
-                    "1",
-                    "A Short History of Nearly Everything",
-                    "Bill Bryson",
-                    "1997",
-                    "0517149257"
-                ),
-                Book(
-                    "2",
-                    "The Hitchhiker's Guide to the Galaxy",
-                    "Douglas Adams",
-                    "1997",
-                    "0517149257"
-                )
-            )
-        }
     }
 }
