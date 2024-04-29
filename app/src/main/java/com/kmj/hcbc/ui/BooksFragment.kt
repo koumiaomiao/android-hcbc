@@ -63,6 +63,9 @@ class BooksFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText.isNullOrEmpty()) {
+                    adapter.setData(viewModel.booksLiveData.value.orEmpty())
+                }
                 return false
             }
         })
@@ -78,9 +81,8 @@ class BooksFragment : Fragment() {
             }
         }
         viewModel.foundBook.observe(viewLifecycleOwner) {
-            it?.let {
-                adapter.setData(listOf(it))
-            }
+            val data = if (null != it) listOf(it) else emptyList()
+            adapter.setData(data)
         }
         viewModel.actionLiveData.observe(viewLifecycleOwner) {
             val message = when (it) {

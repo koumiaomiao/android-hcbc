@@ -98,16 +98,7 @@ class BookViewModel @Inject constructor(private val repository: BookRepository) 
     fun findBookById(id: String) {
         viewModelScope.launch {
             val resource = repository.fetchBookById(id)
-            when (resource.status) {
-                State.SUCCESS -> _foundBook.value = resource.data
-                else -> {
-                    if (resource.throwable is IOException) {
-                        actionLiveData.sendAction(Action.NetworkError)
-                    } else {
-                        actionLiveData.sendAction(Action.FetchDataError(resource.errorBody?.message))
-                    }
-                }
-            }
+             _foundBook.value = resource.data
         }
     }
 }
