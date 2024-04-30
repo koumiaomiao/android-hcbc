@@ -4,7 +4,7 @@
 - Android Studio Iguana | 2023.2.1+
 - Android SDK: Go to Setting -> Language&Frameworks -> SDK, select latest sdk version, download and apply it
 - Gradle: brew install gradle
-- Clone Android Project: https://github.com/koumiaomiao/android-hcbc
+- Clone Android Project: `git clone git@github.com:koumiaomiao/android-hcbc.git`
 
 ### Run Android project
 
