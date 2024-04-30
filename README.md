@@ -76,6 +76,6 @@ APP server is deployed to aws, but aws data will be erased periodically. So it's
 
 - Replace server address with your local address according to `Connect to server`
 
-- Start local server, see [Start local server](https://github.com/koumiaomiao/hcbc-service) for details
+- Start local server, see the `Start local server` section of [README](https://github.com/koumiaomiao/hcbc-service) to see detail
 
 - Rebuild project, install and run apk
