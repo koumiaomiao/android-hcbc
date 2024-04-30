@@ -21,7 +21,7 @@ pipeline {
                 PROJECT = 'app'
             }
             steps {
-                //build
+                sh './gradlew testDebugUnitTest'
                 sh './gradlew -p ${PROJECT} assembleDebug'
             }
         }
