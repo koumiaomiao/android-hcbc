@@ -18,12 +18,14 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
 import okhttp3.internal.notify
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 import java.net.HttpURLConnection
+import java.net.SocketTimeoutException
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class BookViewModelTest {
@@ -72,6 +74,19 @@ class BookViewModelTest {
 
         viewModel.actionLiveData.observeForTesting {
             assert((viewModel.actionLiveData.value != null))
+        }
+    }
+
+    @Test
+    fun should_fetch_all_books_return_error_when_fetch_all_books_repository_return_network_error_resource() {
+        coEvery {
+            repository.fetchAllBooks()
+        } returns Resource.error(null, SocketTimeoutException())
+
+        viewModel.fetchAllBooks()
+
+        viewModel.actionLiveData.observeForTesting {
+            Assert.assertTrue(viewModel.actionLiveData.value != null)
         }
     }
 

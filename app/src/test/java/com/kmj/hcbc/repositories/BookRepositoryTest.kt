@@ -22,6 +22,7 @@ import org.junit.Before
 import org.junit.Test
 import retrofit2.HttpException
 import java.net.HttpURLConnection
+import java.net.SocketTimeoutException
 
 class BookRepositoryTest {
 
@@ -70,6 +71,18 @@ class BookRepositoryTest {
                 resource.errorBody?.code
             )
             Assert.assertEquals("服务器错误", resource.errorBody?.message)
+        }
+
+    @Test
+    fun should_fetch_all_books_repository_return_error_resource_when_fetch_all_books_request_throw_exception() =
+        runBlocking {
+            coEvery {
+                bookApiService.fetchAllBooks()
+            } throws (SocketTimeoutException())
+
+            val resource = repository.fetchAllBooks()
+            assertEquals(State.ERROR, resource.status)
+            Assert.assertTrue(resource.throwable is SocketTimeoutException)
         }
 
     private fun generateErrorBody(key: String): String {

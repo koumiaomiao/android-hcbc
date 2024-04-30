@@ -1,11 +1,16 @@
 package com.kmj.hcbc.remote
 
 import com.google.gson.Gson
+import com.kmj.hcbc.model.Book
 import com.kmj.hcbc.repository.remote.api.BookApiService
 import com.kmj.hcbc.repository.remote.network.BffErrorResponse
+import io.mockk.coEvery
+import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.runBlocking
+import okhttp3.Response
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
+import okhttp3.mockwebserver.SocketPolicy
 import okio.buffer
 import okio.source
 import org.json.JSONObject
@@ -17,6 +22,9 @@ import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.net.HttpURLConnection
+import java.net.NoRouteToHostException
+import java.net.Socket
+import java.net.SocketTimeoutException
 
 class BookApiServiceTest {
 
@@ -57,6 +65,14 @@ class BookApiServiceTest {
         Assert.assertEquals("服务器错误", response?.message)
     }
 
+    @Test(expected = SocketTimeoutException::class)
+    fun should_fetch_all_books_request_throw_connect_timeout_exception_when_network_error() {
+        mockWebServer.enqueue(MockResponse().setSocketPolicy(SocketPolicy.NO_RESPONSE))
+
+        runBlocking {
+            bookApiService.fetchAllBooks()
+        }
+    }
 
     @After
     fun tearDown() {
