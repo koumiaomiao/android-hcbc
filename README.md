@@ -66,7 +66,7 @@ Pipeline is multi-branch style, execute task by jenkins file built-in app projec
   }
   ``````
 
-- execute `Run android project`
+- install and run project according to `Run android project` section
 
 ### Notice
 
