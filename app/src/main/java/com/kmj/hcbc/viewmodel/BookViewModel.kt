@@ -10,7 +10,6 @@ import com.kmj.hcbc.utils.Action
 import com.kmj.hcbc.utils.ActionLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel

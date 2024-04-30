@@ -1,6 +1,8 @@
 package com.kmj.hcbc.remote
 
+import com.google.gson.Gson
 import com.kmj.hcbc.repository.remote.api.BookApiService
+import com.kmj.hcbc.repository.remote.network.BffErrorResponse
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -11,6 +13,7 @@ import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.net.HttpURLConnection
@@ -27,7 +30,7 @@ class BookApiServiceTest {
     }
 
     @Test
-    fun should_get_all_books_when_book_server_response_success() =
+    fun should_fetch_all_books_when_book_server_response_success() =
         runBlocking {
             configMockServer("books", HttpURLConnection.HTTP_OK)
 
@@ -35,6 +38,25 @@ class BookApiServiceTest {
 
             Assert.assertTrue(response?.isNotEmpty() ?: false)
         }
+
+    @Test
+    fun should_fetch_all_books_request_error_when_book_server_response_failure() {
+        configMockServer("error", HttpURLConnection.HTTP_NOT_IMPLEMENTED)
+
+        val exception = Assert.assertThrows(HttpException::class.java) {
+            runBlocking {
+                bookApiService.fetchAllBooks()
+            }
+        }
+        val response = exception.response()?.errorBody()?.charStream()?.use {
+            Gson().fromJson(it, BffErrorResponse::class.java)
+        }
+
+        Assert.assertEquals(HttpURLConnection.HTTP_NOT_IMPLEMENTED, exception.code())
+        Assert.assertEquals("501", response?.code)
+        Assert.assertEquals("服务器错误", response?.message)
+    }
+
 
     @After
     fun tearDown() {
@@ -45,9 +67,14 @@ class BookApiServiceTest {
         val inputStream = javaClass.getResourceAsStream("/response/mockResponse.json")
         val source = inputStream!!.source().buffer()
         val jsonBody = JSONObject(source.readString(Charsets.UTF_8))
+        val body = if (key == "books") {
+            jsonBody.getJSONArray(key).toString()
+        } else {
+            jsonBody.getJSONObject(key).toString()
+        }
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(jsonBody.getJSONArray(key).toString())
+                .setBody(body)
                 .setResponseCode(responseCode)
                 .addHeader("Content-Type", "application/json")
         )

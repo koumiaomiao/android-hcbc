@@ -14,5 +14,9 @@
       "publication_year": "1991",
       "isbn": "076790818X"
     }
-  ]
+  ],
+  "error": {
+    "code": 501,
+    "message": "服务器错误"
+  }
 }

@@ -5,7 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.kmj.hcbc.model.Book
 import com.kmj.hcbc.repository.BookRepository
+import com.kmj.hcbc.repository.remote.network.BffErrorResponse
 import com.kmj.hcbc.repository.remote.network.Resource
+import com.kmj.hcbc.utils.Action
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
@@ -15,11 +17,13 @@ import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
+import okhttp3.internal.notify
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
+import java.net.HttpURLConnection
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class BookViewModelTest {
@@ -43,7 +47,7 @@ class BookViewModelTest {
     }
 
     @Test
-    fun should_fetch_all_books_return_data_when_books_api_repository_response_success() {
+    fun should_fetch_all_books_when_books_api_repository_response_success() {
         coEvery {
             repository.fetchAllBooks()
         } returns Resource.success(books)
@@ -52,6 +56,22 @@ class BookViewModelTest {
 
         viewModel.booksLiveData.observeForTesting {
             assert(viewModel.booksLiveData.value == books)
+        }
+    }
+
+    @Test
+    fun should_fetch_all_books_return_error_when_book_api_repository_return_server_error_resource() {
+        coEvery {
+            repository.fetchAllBooks()
+        } returns Resource.error(
+            BffErrorResponse(HttpURLConnection.HTTP_NOT_IMPLEMENTED.toString(), "服务器错误", null),
+            null
+        )
+
+        viewModel.fetchAllBooks()
+
+        viewModel.actionLiveData.observeForTesting {
+            assert((viewModel.actionLiveData.value != null))
         }
     }
 
