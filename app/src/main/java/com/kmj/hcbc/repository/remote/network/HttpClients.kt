@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit
 object HttpClients {
 
     private const val HTTP_REQUEST_TIMEOUT = 30L
-    private const val BFF_BASE_URL = "http://3.26.200.133:8088"
+    private const val BFF_BASE_URL = "http://13.239.38.192:8088"
 
     private val okHttpClient = OkHttpClient.Builder()
         .connectTimeout(HTTP_REQUEST_TIMEOUT, TimeUnit.SECONDS)
